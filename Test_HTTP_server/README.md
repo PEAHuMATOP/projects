@@ -1,8 +1,56 @@
 # Создание простейшего HTTP сервера
-## Подготовка
-sudo apt update
+## 1.Подготовка
+#проверяем список пакетов
 
-sudo apt update -y
-- проверяем наличие Python 3 (обычно есть по умолчанию)
+		sudo apt update
+#обновляем пакеты
+  
+		sudo apt dist-upgrade -y
+#проверяем наличие Python 3
 
-python3 --version
+  		python3 --version
+>[!NOTE]
+> Python в ASTRA Linux обычно уже установлен по умолчанию
+
+		
+## 2.Подготавливаем рабочую директорию
+#создаем папку для файлов
+		mkdir ~/projects_EVS/Test_HTTP_server
+#переходим в созданную папку
+
+		cd ~/projekts_EVS/Test WEB-server
+>[!NOTE]
+> Путь к директории сервера можно создавать свой
+		
+#создаём тестовые файлы для демонстрации
+
+		echo "Testing file for WEB server" > test_WEB.txt
+		echo "<html><body><h1>This is my first WEB server</h1></body></html> > index.html
+## 3.Запуск сервера
+### 3.1 Первый вариант (на один раз-посмотреть, либо для временного использования)
+#Запускаем из текущей директории
+
+		python3 -m http.server 8080
+### 3.2 Второй вариант (для постоянной работы, пока комп не сгорит :) )
+#Запускаем в фоне (nohup), чтобы при закрытии терминальной сессии запущенный процесс оставался активным. Паралльлельно выводим данные из stdin в логфайл (tee). Запущенная с ключом -a не перезаписывает файл, а добавляет данные в конец. Конструкция 2>&1 перенаправляет stderr в указанный логфайл.
+
+		cd ~/projekts_EVS/Test WEB-server
+		nohup python3 -m http.server 8080 2>&1 | tee -a server.log
+#проверяем запущенный процесс
+
+		ps aux | grep python3
+### 3.3 Чтобы каждый раз не делать многабукаф, делаем скрипт.
+#создаем файл
+
+		nano ~/start_WEB_serv.sh
+#копируем в него текст
+
+		#!/bin/bash
+		echo "Run HTTP-server on port 8080"
+		echo "The files are available at http://your_IP:8080" 
+		cd /home/administrator/projects_EVS/Test_HTTP_server
+		python3 -m http.server 8080 2>&1 | tee server.log
+#делаем скрипт исполняемым
+
+		chmod +x ~/start_WEB_serv.sh
+		
