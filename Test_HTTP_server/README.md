@@ -18,14 +18,14 @@
 		mkdir ~/projects_EVS/Test_HTTP_server
 #переходим в созданную папку
 
-		cd ~/projekts_EVS/Test WEB-server
+		cd ~/projekts_EVS/Test_HTTP_server
 >[!NOTE]
 > Путь к директории сервера можно создавать свой
 		
 #создаём тестовые файлы для демонстрации
 
-		echo "Testing file for WEB server" > test_WEB.txt
-		echo "<html><body><h1>This is my first WEB server</h1></body></html> > index.html
+		echo "Testing file for WEB server" > test_HTTP.txt
+		echo "<html><body><h1>This is my first HTTP server</h1></body></html> > index.html
 ## 3.Запуск сервера
 ### 3.1 Первый вариант (на один раз-посмотреть, либо для временного использования)
 #Запускаем из текущей директории
@@ -34,7 +34,7 @@
 ### 3.2 Второй вариант (для постоянной работы, пока комп не сгорит :) )
 #Запускаем в фоне (nohup), чтобы при закрытии терминальной сессии запущенный процесс оставался активным. Параллельно выводим данные из stdin в логфайл (tee). Запущенная с ключом -a не перезаписывает файл, а добавляет данные в конец. Конструкция 2>&1 перенаправляет stderr в указанный логфайл.
 
-		cd ~/projekts_EVS/Test WEB-server
+		cd ~/projekts_EVS/Test_HTTP_server
 		nohup python3 -m http.server 8080 2>&1 | tee -a server.log
 #проверяем запущенный процесс
 
